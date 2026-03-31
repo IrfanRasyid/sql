@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { roadmapData, Topic, TableInfo, VisInfo } from './data';
 import { QuizArea } from './Quiz';
 import { Terminal, BookOpen, ArrowRight, Lightbulb, Code2, Plus, ArrowDown, ChevronRight, CheckCircle2, Layers, Database, Gamepad2 } from 'lucide-react';

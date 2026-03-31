@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { QuizQuestion, quizData } from './quizData';
+import { useState } from 'react';
+import { quizData } from './quizData';
 import { roadmapData } from './data';
 import { CheckCircle2, XCircle, ChevronRight, Trophy, RefreshCcw, ArrowLeft, BookOpen, Lightbulb } from 'lucide-react';
 
