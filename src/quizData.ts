@@ -38,7 +38,20 @@ export const quizData: QuizQuestion[] = [
 
   // DDL
   {
-    id: "q_ddl_1",
+    id: "q_ddl_create",
+    topicId: "ddl",
+    question: "Perintah DDL apa yang digunakan untuk membuat database atau tabel baru dari awal?",
+    options: [
+      "MAKE TABLE",
+      "BUILD TABLE",
+      "CREATE TABLE",
+      "GENERATE TABLE"
+    ],
+    correctAnswerIndex: 2,
+    explanation: "CREATE digunakan untuk membuat objek baru di database, seperti CREATE DATABASE atau CREATE TABLE. Ibaratnya membangun pondasi sekolah baru."
+  },
+  {
+    id: "q_ddl_alter",
     topicId: "ddl",
     question: "Perintah DDL apa yang digunakan untuk menambah kolom baru bernama 'alamat' ke dalam tabel yang sudah ada?",
     options: [
@@ -48,10 +61,10 @@ export const quizData: QuizQuestion[] = [
       "UPDATE tabel SET alamat"
     ],
     correctAnswerIndex: 2,
-    explanation: "ALTER TABLE digunakan untuk merombak atau memodifikasi struktur tabel yang sudah jadi, seperti menambah kolom (ADD)."
+    explanation: "ALTER TABLE digunakan untuk merombak atau memodifikasi struktur tabel yang sudah jadi, seperti menambah kolom (ADD), menghapus kolom (DROP), atau mengubah tipe data."
   },
   {
-    id: "q_ddl_2",
+    id: "q_ddl_truncate_drop",
     topicId: "ddl",
     question: "Apa perbedaan utama antara DROP dan TRUNCATE?",
     options: [
@@ -61,27 +74,14 @@ export const quizData: QuizQuestion[] = [
       "Tidak ada bedanya, keduanya menghapus tabel"
     ],
     correctAnswerIndex: 1,
-    explanation: "DROP ibarat menggusur gedung sekolah (struktur hancur), sedangkan TRUNCATE ibarat mengeluarkan semua murid dari kelas (struktur kelas tetap ada, hanya kosong)."
+    explanation: "DROP ibarat menggusur gedung sekolah (struktur hancur/hilang dari database), sedangkan TRUNCATE ibarat mengeluarkan semua murid dari kelas dengan cepat (struktur kelas tetap ada, hanya isinya yang kosong)."
   },
 
   // DML
   {
-    id: "q_dml_1",
+    id: "q_dml_select",
     topicId: "dml",
-    question: "Jika kamu lupa menambahkan klausa WHERE saat menjalankan perintah UPDATE, apa yang akan terjadi?",
-    options: [
-      "Akan muncul pesan error",
-      "Hanya baris pertama yang akan diubah",
-      "Hanya baris terakhir yang akan diubah",
-      "SEMUA baris dalam tabel tersebut akan ikut berubah"
-    ],
-    correctAnswerIndex: 3,
-    explanation: "Tanpa klausa WHERE sebagai filter/kondisi, perintah UPDATE (dan juga DELETE) akan dieksekusi ke seluruh baris yang ada di tabel. Sangat berbahaya!"
-  },
-  {
-    id: "q_dml_2",
-    topicId: "dml",
-    question: "Perintah mana yang benar untuk mengambil nama dan jurusan dari tabel Siswa?",
+    question: "Perintah mana yang benar untuk mengambil HANYA kolom 'nama' dan 'jurusan' dari tabel Siswa?",
     options: [
       "GET nama, jurusan FROM Siswa",
       "SELECT nama, jurusan FROM Siswa",
@@ -89,7 +89,46 @@ export const quizData: QuizQuestion[] = [
       "READ nama, jurusan FROM Siswa"
     ],
     correctAnswerIndex: 1,
-    explanation: "SELECT adalah perintah standar DML untuk membaca atau mengambil data dari database."
+    explanation: "SELECT adalah perintah standar DML untuk membaca atau mengambil data. Kita bisa menyebutkan nama kolom secara spesifik yang ingin ditampilkan."
+  },
+  {
+    id: "q_dml_insert",
+    topicId: "dml",
+    question: "Siswa baru bernama Budi baru saja mendaftar. Perintah DML apa yang digunakan untuk memasukkan data Budi ke tabel Siswa?",
+    options: [
+      "ADD INTO Siswa VALUES ('Budi')",
+      "PUT INTO Siswa VALUES ('Budi')",
+      "INSERT INTO Siswa VALUES ('Budi')",
+      "UPDATE Siswa SET nama = 'Budi'"
+    ],
+    correctAnswerIndex: 2,
+    explanation: "INSERT INTO digunakan untuk menambah baris data (record) baru ke dalam tabel."
+  },
+  {
+    id: "q_dml_update",
+    topicId: "dml",
+    question: "Jika kamu lupa menambahkan klausa WHERE saat menjalankan perintah UPDATE, apa yang akan terjadi?",
+    options: [
+      "Akan muncul pesan error dari database",
+      "Hanya baris pertama yang akan diubah",
+      "Hanya baris terakhir yang akan diubah",
+      "SEMUA baris dalam tabel tersebut akan ikut berubah"
+    ],
+    correctAnswerIndex: 3,
+    explanation: "Tanpa klausa WHERE sebagai filter/kondisi, perintah UPDATE akan dieksekusi ke seluruh baris yang ada di tabel. Ini adalah kesalahan fatal yang sering terjadi!"
+  },
+  {
+    id: "q_dml_delete",
+    topicId: "dml",
+    question: "Budi pindah sekolah, sehingga datanya harus dihapus dari sistem. Perintah apa yang tepat?",
+    options: [
+      "REMOVE FROM Siswa WHERE nama = 'Budi'",
+      "DELETE FROM Siswa WHERE nama = 'Budi'",
+      "DROP FROM Siswa WHERE nama = 'Budi'",
+      "CLEAR FROM Siswa WHERE nama = 'Budi'"
+    ],
+    correctAnswerIndex: 1,
+    explanation: "DELETE digunakan untuk menghapus baris data. Ingat, bedakan dengan DROP yang digunakan untuk menghapus struktur tabelnya."
   },
 
   // Constraints
@@ -109,9 +148,22 @@ export const quizData: QuizQuestion[] = [
 
   // JOINs
   {
-    id: "q_join_1",
+    id: "q_join_inner",
     topicId: "joins",
-    question: "Wali kelas ingin melihat daftar SEMUA siswa di kelasnya beserta nilai remedialnya (jika ada). Jika siswa tidak ikut remedial, nilainya biarkan kosong (NULL). JOIN apa yang paling tepat jika tabel Siswa diletakkan di sebelah kiri?",
+    question: "Jenis JOIN apa yang HANYA menampilkan data jika ada kecocokan di KEDUA tabel?",
+    options: [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL OUTER JOIN"
+    ],
+    correctAnswerIndex: 0,
+    explanation: "INNER JOIN hanya mengambil 'irisan' (intersection) dari kedua tabel. Jika data di satu tabel tidak punya pasangan di tabel lain, data tersebut tidak akan ditampilkan."
+  },
+  {
+    id: "q_join_left",
+    topicId: "joins",
+    question: "Wali kelas ingin melihat daftar SEMUA siswa (tabel kiri) beserta nilai remedialnya (tabel kanan). Jika siswa tidak ikut remedial, nilainya biarkan kosong (NULL). JOIN apa yang paling tepat?",
     options: [
       "INNER JOIN",
       "LEFT JOIN",
@@ -122,17 +174,30 @@ export const quizData: QuizQuestion[] = [
     explanation: "LEFT JOIN akan mengambil semua data dari tabel kiri (Siswa), terlepas dari apakah mereka punya kecocokan di tabel kanan (Nilai Remedial) atau tidak."
   },
   {
-    id: "q_join_2",
+    id: "q_join_right",
     topicId: "joins",
-    question: "Jenis JOIN apa yang HANYA menampilkan data jika ada kecocokan di KEDUA tabel?",
+    question: "Terdapat tabel Peminjaman (kiri) dan Buku (kanan). Jika kita ingin melihat SEMUA daftar Buku, baik yang sedang dipinjam maupun yang belum pernah dipinjam sama sekali, JOIN apa yang bisa digunakan?",
+    options: [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "CROSS JOIN"
+    ],
+    correctAnswerIndex: 2,
+    explanation: "RIGHT JOIN akan mengambil semua data dari tabel kanan (Buku), meskipun tidak ada kecocokan di tabel kiri (Peminjaman)."
+  },
+  {
+    id: "q_join_full",
+    topicId: "joins",
+    question: "Jika kita ingin menggabungkan tabel Guru dan tabel Ekskul untuk melihat SEMUA Guru dan SEMUA Ekskul (termasuk guru yang tidak pegang ekskul, dan ekskul yang belum punya guru pembina), kita harus menggunakan...",
     options: [
       "INNER JOIN",
       "LEFT JOIN",
       "RIGHT JOIN",
       "FULL OUTER JOIN"
     ],
-    correctAnswerIndex: 0,
-    explanation: "INNER JOIN hanya mengambil 'irisan' dari kedua tabel. Jika data di satu tabel tidak punya pasangan di tabel lain, data tersebut akan dibuang dari hasil."
+    correctAnswerIndex: 3,
+    explanation: "FULL OUTER JOIN menggabungkan hasil dari LEFT JOIN dan RIGHT JOIN. Semua data dari kedua tabel akan ditampilkan, dan yang tidak punya pasangan akan diisi NULL."
   },
 
   // Aggregations
